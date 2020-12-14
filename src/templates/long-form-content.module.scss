@@ -1,0 +1,138 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  @include media('<=tabletWide') {
+    flex-direction: column;
+  }
+}
+
+.title {
+  flex-basis: 40%;
+  font-size: 2.75rem;
+  font-family: v('ff-mono');
+
+  padding-right: 8rem;
+
+  @include media('<=tabletWide') {
+    padding-right: 0;
+    margin-bottom: 4rem;
+  }
+}
+
+.content {
+  flex-basis: 60%;
+
+  * {
+    margin-bottom: 2rem;
+  }
+
+  @for $index from 1 through 6 {
+    h#{$index} {
+      font-family: v('ff-mono');
+      font-weight: v('bold');
+
+      margin-top: 4rem;
+    }
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+
+  @for $index from 3 through 6 {
+    h#{$index} {
+      font-size: 1.75rem;
+    }
+  }
+
+  p {
+    font-size: 1.75rem;
+  }
+
+  ul,
+  ol {
+    li {
+      margin: 0;
+      padding: 0;
+
+      font-size: 1.75rem;
+
+      + li {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  ul {
+    list-style: '>  ' outside none;
+    padding-left: 4rem;
+
+    li {
+      &::marker {
+        font-size: 3rem;
+        font-weight: v('semi');
+        color: v('brand-fire');
+      }
+    }
+  }
+
+  ol {
+    counter-reset: number;
+    @include gap(2rem);
+
+    li {
+      counter-increment: number;
+      display: flex;
+
+      &:before {
+        content: counter(number) '.';
+        font-weight: v('semi');
+        color: v('brand-fire');
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid v('brand-fire');
+    color: v('brand-fire');
+  }
+
+  blockquote {
+    position: relative;
+    width: 100%;
+
+    padding: 2rem;
+    padding-left: 6rem;
+
+    margin: 0;
+    margin-bottom: 2rem;
+
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px 20px rgba(72, 76, 108, 0.05);
+    background-color: v('white');
+
+    &:after {
+      position: absolute;
+      content: open-quote;
+      font-family: v('ff-sans');
+
+      top: 1.25rem;
+      left: 2rem;
+
+      font-size: 6rem;
+      line-height: 6rem;
+    }
+
+    p {
+      font-size: 1.75rem;
+      margin-bottom: 0;
+    }
+  }
+}

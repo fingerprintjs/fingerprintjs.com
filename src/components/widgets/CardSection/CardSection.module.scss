@@ -9,7 +9,7 @@
   background-size: 600px auto;
   background-position: right bottom;
 
-  @include media('<=phoneLandscape') {
+  @include media('<=tabletWide') {
     padding: 4rem;
     padding-bottom: 0;
 

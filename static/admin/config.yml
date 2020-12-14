@@ -93,3 +93,24 @@ collections:
               { label: Button href, name: buttonHref, widget: string },
             ],
         }
+  - name: 'blog'
+    label: 'Blog'
+    folder: content/blog
+    create: true
+    delete: true
+    fields:
+      - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'long-form-content' }
+      - {
+          label: Metadata,
+          name: metadata,
+          widget: object,
+          fields:
+            [
+              { label: Title, name: title, widget: string },
+              { label: Description, name: description, widget: string },
+              { label: URL, name: url, widget: string },
+              { label: Image, name: image, widget: image },
+            ],
+        }
+      - { label: Publish date, name: publishDate, widget: datetime, date_format: 'MM.DD.YYYY' }
+      - { label: Body, name: body, widget: markdown }
