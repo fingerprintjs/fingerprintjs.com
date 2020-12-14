@@ -2,22 +2,22 @@
   padding-top: 4rem;
 
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(4, 1fr);
   gap: 3rem;
 
   @include media('<=desktop') {
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @include media('<=tabletWide') {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
   }
 }
 
 .post {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex: 1 0 auto;
 
   overflow: hidden;
@@ -65,4 +65,22 @@
 .description {
   font-family: v('ff-sans');
   font-size: 1.75rem;
+}
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+
+  height: 0;
+  padding-bottom: 3 / 4 * 100%;
+}
+
+.image {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: auto;
 }

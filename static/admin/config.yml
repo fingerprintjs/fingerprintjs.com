@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
-  branch: master
+  # TODO Change this back before merge.
+  branch: feature/blog-pages
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'
     update: 'Update {{collection}} “{{slug}}”'
@@ -113,4 +114,5 @@ collections:
             ],
         }
       - { label: Publish date, name: publishDate, widget: datetime, date_format: 'MM.DD.YYYY' }
+      - { label: Title, name: title, widget: string }
       - { label: Body, name: body, widget: markdown }

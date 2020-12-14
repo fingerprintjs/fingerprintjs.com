@@ -14,7 +14,7 @@ export default function Blog({ data }: { data: GatsbyTypes.BlogQuery }) {
     <Layout>
       <Section>
         <Container size='large'>
-          <h1 className={styles.header}>Blog landing page</h1>
+          <h1 className={styles.header}>Blog Articles</h1>
 
           <div className={styles.grid}>
             {posts.map(({ node: post }) => {
@@ -22,16 +22,16 @@ export default function Blog({ data }: { data: GatsbyTypes.BlogQuery }) {
                 return null
               }
 
-              const { slug = '/' } = post.fields
-              const { publishDate = '' } = post.frontmatter
-              const { title = '', description = '', image } = post.frontmatter.metadata
+              const { slug } = post.fields
+              const { publishDate, title, metadata } = post.frontmatter
+              const { description, image } = metadata
 
               return (
                 <Post
                   key={post.id}
                   title={title}
                   description={description}
-                  publishDate={publishDate}
+                  publishDate={dateFormatter.format(new Date(publishDate))}
                   image={image as GatsbyTypes.File}
                   path={slug}
                 />
@@ -46,7 +46,10 @@ export default function Blog({ data }: { data: GatsbyTypes.BlogQuery }) {
 
 export const pageQuery = graphql`
   query Blog {
-    allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/(blog)/" } }) {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/(blog)/" } }
+      sort: { order: DESC, fields: frontmatter___publishDate }
+    ) {
       edges {
         node {
           id
@@ -65,6 +68,7 @@ export const pageQuery = graphql`
                 }
               }
             }
+            title
             publishDate
           }
         }
@@ -72,6 +76,8 @@ export const pageQuery = graphql`
     }
   }
 `
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
 
 interface PostProps {
   title: string
@@ -85,7 +91,11 @@ function Post({ title, description, image, publishDate, path }: PostProps) {
 
   return (
     <Link to={path} className={styles.post}>
-      {imageFluid && <Img fluid={imageFluid} className={styles.image} />}
+      {imageFluid && (
+        <div className={styles.wrapper}>
+          <Img fluid={imageFluid} className={styles.image} />
+        </div>
+      )}
 
       <div className={styles.content}>
         <span className={styles.publishDate}>{publishDate}</span>
